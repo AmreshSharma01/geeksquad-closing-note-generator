@@ -9,28 +9,25 @@
 
   <body>
     <div class="wrap">
-      <header>
+      <header class="header">
         <h1>Geek Squad Closing Note Generator</h1>
-        <p class="sub">
-          Fill only what you need. Units with no C/IP/R content won’t appear in
-          the output.
-        </p>
+        <p class="sub">Draft auto-saves. Empty units won’t appear in output.</p>
       </header>
 
       <section class="card">
         <div class="grid topGrid">
           <div>
-            <label for="closingDate">
-              Date of closing <span class="req">*</span>
-            </label>
+            <label for="closingDate"
+              >Date of closing <span class="req">*</span></label
+            >
             <input id="closingDate" type="date" required />
             <div class="fieldError" id="dateError" aria-live="polite"></div>
           </div>
 
           <div>
-            <label for="lead">
-              Closing agent name <span class="req">*</span>
-            </label>
+            <label for="lead"
+              >Closing agent name <span class="req">*</span></label
+            >
             <input id="lead" type="text" placeholder="e.g., Amresh" required />
             <div class="fieldError" id="leadError" aria-live="polite"></div>
           </div>
@@ -46,28 +43,13 @@
           </div>
         </div>
 
-        <div class="hint">
-          <span class="req">*</span> Required. Copy is enabled only after
-          required fields are filled.
+        <div class="hintRow">
+          <div class="hint">
+            <span class="req">*</span> Required (Copy enabled only after Date +
+            Closing agent).
+          </div>
+          <div class="saveMeta" id="saveMeta" aria-live="polite"></div>
         </div>
-      </section>
-
-      <!-- ✅ Output moved up here -->
-      <section class="card">
-        <div class="sectionTitle">Final output (copy to Teams)</div>
-        <textarea id="output" readonly></textarea>
-
-        <div class="actions">
-          <button id="copyBtn" type="button" disabled>Copy to Clipboard</button>
-          <button id="resetBtn" type="button" class="secondary">Reset</button>
-        </div>
-
-        <div id="copyStatus" class="status" aria-live="polite"></div>
-      </section>
-
-      <section class="card">
-        <div class="sectionTitle">Workstations</div>
-        <div id="units" class="units"></div>
       </section>
 
       <section class="card">
@@ -77,7 +59,66 @@
           placeholder="Anything important for the team..."
         ></textarea>
       </section>
+
+      <section class="card">
+        <div class="outputHeader">
+          <div class="sectionTitle">Final output (copy to Teams)</div>
+          <div class="outputMini">
+            <button
+              id="copyWsBtn"
+              type="button"
+              class="secondary smallBtn"
+              disabled
+            >
+              Copy Workstations Only
+            </button>
+          </div>
+        </div>
+
+        <textarea id="output" readonly></textarea>
+
+        <div class="actions">
+          <button id="copyBtn" type="button" disabled>Copy Full Note</button>
+          <button id="resetBtn" type="button" class="secondary">Reset</button>
+        </div>
+
+        <div id="copyStatus" class="status" aria-live="polite"></div>
+      </section>
+
+      <section class="card">
+        <div class="workstationsHeader">
+          <div class="sectionTitle">Workstations</div>
+
+          <div class="toolbar">
+            <label class="toggle">
+              <input id="showActiveToggle" type="checkbox" />
+              <span>Show only active</span>
+            </label>
+
+            <button
+              id="collapseAllBtn"
+              type="button"
+              class="secondary smallBtn"
+            >
+              Collapse all
+            </button>
+          </div>
+        </div>
+
+        <div id="units" class="units"></div>
+      </section>
     </div>
+
+    <!-- Floating copy button (mobile) -->
+    <button
+      id="floatingCopyBtn"
+      type="button"
+      class="floatingCopy"
+      disabled
+      aria-label="Copy full closing note"
+    >
+      Copy
+    </button>
 
     <script src="app.js" defer></script>
   </body>
