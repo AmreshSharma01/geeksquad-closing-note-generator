@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Geek Squad Closing Note Generator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>Geek Squad Closing Note Generator</h1>
+        <p class="sub">
+          Fill only what you need. Units with no C/IP/R content won’t appear in
+          the output.
+        </p>
+      </header>
+
+      <section class="card">
+        <div class="grid topGrid">
+          <div>
+            <label for="closingDate">
+              Date of closing <span class="req">*</span>
+            </label>
+            <input id="closingDate" type="date" required />
+            <div class="fieldError" id="dateError" aria-live="polite"></div>
+          </div>
+
+          <div>
+            <label for="lead">
+              Closing agent name <span class="req">*</span>
+            </label>
+            <input id="lead" type="text" placeholder="e.g., Amresh" required />
+            <div class="fieldError" id="leadError" aria-live="polite"></div>
+          </div>
+
+          <div>
+            <label for="revenue">Revenue</label>
+            <input id="revenue" type="text" placeholder="e.g., $1,250" />
+          </div>
+
+          <div>
+            <label for="budget">Budget</label>
+            <input id="budget" type="text" placeholder="e.g., $1,400" />
+          </div>
+        </div>
+
+        <div class="hint">
+          <span class="req">*</span> Required. Copy is enabled only after
+          required fields are filled.
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="sectionTitle">Workstations</div>
+        <div id="units" class="units"></div>
+      </section>
+
+      <section class="card">
+        <div class="sectionTitle">Important notes</div>
+        <textarea
+          id="importantNotes"
+          placeholder="Anything important for the team..."
+        ></textarea>
+      </section>
+
+      <section class="card">
+        <div class="sectionTitle">Final output (copy to Teams)</div>
+        <textarea id="output" readonly></textarea>
+
+        <div class="actions">
+          <button id="copyBtn" type="button" disabled>Copy to Clipboard</button>
+          <button id="resetBtn" type="button" class="secondary">Reset</button>
+        </div>
+
+        <div id="copyStatus" class="status" aria-live="polite"></div>
+      </section>
+    </div>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
