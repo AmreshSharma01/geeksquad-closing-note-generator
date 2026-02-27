@@ -17,7 +17,6 @@ const UNIT_NAMES = [
 const el = (id) => document.getElementById(id);
 
 function splitItems(text) {
-  // Accept comma or line separated
   const raw = (text || "")
     .split(/\n|,/g)
     .map((s) => s.trim())
@@ -101,7 +100,6 @@ function validateRequiredFields() {
   const date = el("closingDate").value;
   const lead = el("lead").value.trim();
 
-  // reset
   el("dateError").textContent = "";
   el("leadError").textContent = "";
   el("closingDate").classList.remove("invalid");
@@ -142,6 +140,8 @@ function buildOutput() {
   lines.push("**Workstations**");
 
   const unitLines = [];
+  let unitCounter = 0; // ✅ FIX: separate counter for numbering
+
   UNIT_NAMES.forEach((name) => {
     const prio = el(`prio_${name}`).value;
 
@@ -151,7 +151,8 @@ function buildOutput() {
 
     if (!cItems.length && !ipItems.length && !rItems.length) return; // hide empty
 
-    unitLines.push(`${unitLines.length + 1}. ${name} | Priority: ${prio}`);
+    unitCounter += 1;
+    unitLines.push(`${unitCounter}. ${name} | Priority: ${prio}`);
     if (cItems.length) unitLines.push(`   - C: ${cItems.join(", ")}`);
     if (ipItems.length) unitLines.push(`   - IP: ${ipItems.join(", ")}`);
     if (rItems.length) unitLines.push(`   - R: ${rItems.join(", ")}`);
@@ -166,9 +167,7 @@ function buildOutput() {
 }
 
 function updateOutput() {
-  // live preview always updates
   el("output").value = buildOutput();
-  // copy enabled only when required fields are valid
   validateRequiredFields();
 }
 
@@ -186,7 +185,6 @@ async function copyOutput() {
     await navigator.clipboard.writeText(text);
     status.textContent = "Copied ✅ Paste into Teams.";
   } catch (e) {
-    // fallback
     const out = el("output");
     out.focus();
     out.select();
@@ -212,13 +210,11 @@ function resetAll() {
 }
 
 function init() {
-  // render units
   const unitsDiv = el("units");
   UNIT_NAMES.forEach((name, idx) =>
     unitsDiv.appendChild(makeUnitCard(name, idx)),
   );
 
-  // wire top inputs
   ["closingDate", "lead", "revenue", "budget", "importantNotes"].forEach(
     (id) => {
       el(id).addEventListener("input", updateOutput);

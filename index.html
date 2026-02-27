@@ -52,6 +52,19 @@
         </div>
       </section>
 
+      <!-- ✅ Output moved up here -->
+      <section class="card">
+        <div class="sectionTitle">Final output (copy to Teams)</div>
+        <textarea id="output" readonly></textarea>
+
+        <div class="actions">
+          <button id="copyBtn" type="button" disabled>Copy to Clipboard</button>
+          <button id="resetBtn" type="button" class="secondary">Reset</button>
+        </div>
+
+        <div id="copyStatus" class="status" aria-live="polite"></div>
+      </section>
+
       <section class="card">
         <div class="sectionTitle">Workstations</div>
         <div id="units" class="units"></div>
@@ -63,18 +76,6 @@
           id="importantNotes"
           placeholder="Anything important for the team..."
         ></textarea>
-      </section>
-
-      <section class="card">
-        <div class="sectionTitle">Final output (copy to Teams)</div>
-        <textarea id="output" readonly></textarea>
-
-        <div class="actions">
-          <button id="copyBtn" type="button" disabled>Copy to Clipboard</button>
-          <button id="resetBtn" type="button" class="secondary">Reset</button>
-        </div>
-
-        <div id="copyStatus" class="status" aria-live="polite"></div>
       </section>
     </div>
 
