@@ -110,7 +110,14 @@ function buildWorkstationsLines() {
     unitCounter += 1;
     const label = getDisplayName(key);
 
+    // Add separator before every workstation except the first
+    if (unitCounter > 1) {
+      unitLines.push("==================================================");
+    }
+
+    // Workstation header (clean + visually strong)
     unitLines.push(`${unitCounter}. ${label} | Priority: ${prio}`);
+
     if (cItems.length) unitLines.push(`   - C: ${cItems.join(", ")}`);
     if (ipItems.length) unitLines.push(`   - IP: ${ipItems.join(", ")}`);
     if (rItems.length) unitLines.push(`   - R: ${rItems.join(", ")}`);
