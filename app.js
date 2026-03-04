@@ -94,6 +94,14 @@ function validateRequiredFields() {
   return ok;
 }
 
+function prioIcon(prio) {
+  const p = (prio || "").toLowerCase();
+  if (p === "high") return "🔴";
+  if (p === "medium") return "🟡";
+  if (p === "low") return "🟢";
+  return "⚪";
+}
+
 function buildWorkstationsLines() {
   const unitLines = [];
   let unitCounter = 0;
@@ -110,17 +118,20 @@ function buildWorkstationsLines() {
     unitCounter += 1;
     const label = getDisplayName(key);
 
-    // Add separator before every workstation except the first
+    // separator
     if (unitCounter > 1) {
-      unitLines.push("==================================================");
+      unitLines.push("==================================");
     }
 
-    // Workstation header (clean + visually strong)
-    unitLines.push(`${unitCounter}. ${label} | Priority: ${prio}`);
+    const header = `${prioIcon(prio)} ${unitCounter}. ${label} | Priority: ${prio}`;
+    unitLines.push(header);
 
-    if (cItems.length) unitLines.push(`   - C: ${cItems.join(", ")}`);
-    if (ipItems.length) unitLines.push(`   - IP: ${ipItems.join(", ")}`);
-    if (rItems.length) unitLines.push(`   - R: ${rItems.join(", ")}`);
+    // calculate indentation so items align under workstation name
+    const indent = " ".repeat(header.indexOf(label));
+
+    if (cItems.length) unitLines.push(`${indent}- C: ${cItems.join(", ")}`);
+    if (ipItems.length) unitLines.push(`${indent}- IP: ${ipItems.join(", ")}`);
+    if (rItems.length) unitLines.push(`${indent}- R: ${rItems.join(", ")}`);
   }
 
   return unitLines.length ? unitLines : ["(none)"];
