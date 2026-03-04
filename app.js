@@ -120,7 +120,7 @@ function buildWorkstationsLines() {
 
     // separator
     if (unitCounter > 1) {
-      unitLines.push("==================================");
+      unitLines.push("============================");
     }
 
     const header = `${prioIcon(prio)} ${unitCounter}. ${label} | Priority: ${prio}`;
